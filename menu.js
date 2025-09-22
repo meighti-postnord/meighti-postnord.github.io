@@ -3,6 +3,10 @@ document.addEventListener('DOMContentLoaded', function() {
   const hamburger = document.getElementById('hamburger');
   const closeBtn = document.getElementById('close-btn');
 
+  function isMobile() {
+    return window.innerWidth <= 700;
+  }
+
   function openMenu() {
     sidebar.classList.add('open');
   }
@@ -10,15 +14,28 @@ document.addEventListener('DOMContentLoaded', function() {
     sidebar.classList.remove('open');
   }
 
-  hamburger.addEventListener('click', openMenu);
-  closeBtn.addEventListener('click', closeMenu);
+  if (hamburger) {
+    hamburger.addEventListener('click', function() {
+      if (isMobile()) openMenu();
+    });
+  }
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeMenu);
+  }
 
   // Optionally close menu when clicking outside (mobile UX)
   document.addEventListener('click', function(e) {
-    if (sidebar.classList.contains('open') &&
+    if (isMobile() && sidebar.classList.contains('open') &&
         !sidebar.contains(e.target) &&
         e.target !== hamburger) {
       closeMenu();
+    }
+  });
+
+  // Responsive: reset sidebar state on resize
+  window.addEventListener('resize', function() {
+    if (!isMobile()) {
+      sidebar.classList.remove('open');
     }
   });
 });
