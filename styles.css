@@ -3,48 +3,51 @@ body {
   font-family: Arial, sans-serif;
 }
 
-header {
-  display: flex;
-  align-items: center;
+/* Rectangle bar at top of sidebar to blend with header */
+.sidebar-top-bar {
   background: #3566c0;
-  color: #fff;
-  padding: 1em;
-  position: relative;
+  height: 3em;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
-header h1 {
-  margin: 0 auto;
-  font-size: 1.5em;
-}
-
-.hamburger {
-  font-size: 2em;
-  background: none;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  margin-right: 1em;
-  display: none;
-}
-
-/* Sidebar styles for desktop */
+/* Sidebar hidden by default */
 .sidebar {
   position: fixed;
   top: 0;
-  left: 0;
+  left: -220px;
   width: 220px;
   height: 100%;
   background: #222;
   color: #fff;
-  z-index: 1000;
-  padding-top: 2em;
+  z-index: 2000; /* Sidebar is above header */
+  padding-top: .8em;
   transition: left 0.3s;
-  display: flex;
-  flex-direction: column;
+  display: block;
 }
 
-.menu-header, .close-btn {
-  display: none;
+/* Show sidebar when open */
+.sidebar.open {
+  left: 0;
+}
+
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1em;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  z-index: 2000;
+  padding-left: .55em;
+  font-size: 1.5em;
+  cursor: pointer;
 }
 
 .sidebar ul {
@@ -64,12 +67,41 @@ header h1 {
   display: block;
 }
 
-main {
-  padding: 2em 1em;
-  max-width: 600px;
-  margin: 0 auto 0 240px; /* Space for sidebar */
+.hamburger {
+  font-size: 2em;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  margin-right: 1em;
+  display: block;
 }
 
+header {
+  z-index: 1000;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #3566c0;
+  color: #fff;
+  padding: 1em;
+  height: 1em;
+}
+
+
+header h1 {
+  margin: 0 auto;
+  font-size: 1.5em;
+}
+
+.main-content {
+  padding: 2em 1em;
+  max-width: 600px;
+  margin: 0 auto;
+  transition: margin-left 0.3s;
+}
+
+/* Profile styling */
 .profile {
   display: flex;
   flex-direction: column;
@@ -83,29 +115,21 @@ main {
   margin-bottom: 1em;
 }
 
-/* Mobile styles */
+/* Responsive for mobile */
 @media (max-width: 700px) {
-  .sidebar {
-    left: -220px;
-    display: block;
-    transition: left 0.3s;
-    margin-left: 0;
-  }
-  .sidebar.open {
-    left: 0;
-  }
-  .menu-header, .close-btn {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 1em;
-  }
-  .hamburger {
-    display: block;
-  }
-  main {
+  .main-content {
     margin: 0;
     padding: 1em 0.5em;
     max-width: 100%;
+  }
+  header h1 {
+    font-size: 1.2em;
+  }
+  .sidebar {
+    width: 180px;
+    padding-top: 1em;
+  }
+  .sidebar.open ~ .main-content {
+    margin-left: 180px;
   }
 }

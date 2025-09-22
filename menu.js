@@ -3,39 +3,41 @@ document.addEventListener('DOMContentLoaded', function() {
   const hamburger = document.getElementById('hamburger');
   const closeBtn = document.getElementById('close-btn');
 
-  function isMobile() {
-    return window.innerWidth <= 700;
-  }
-
   function openMenu() {
     sidebar.classList.add('open');
   }
   function closeMenu() {
     sidebar.classList.remove('open');
   }
-
-  if (hamburger) {
-    hamburger.addEventListener('click', function() {
-      if (isMobile()) openMenu();
-    });
+  function toggleMenu() {
+    sidebar.classList.toggle('open');
   }
+
+  // Hamburger toggles sidebar
+  if (hamburger) {
+    hamburger.addEventListener('click', toggleMenu);
+  }
+
+  // Close button closes sidebar
   if (closeBtn) {
     closeBtn.addEventListener('click', closeMenu);
   }
 
-  // Optionally close menu when clicking outside (mobile UX)
+  // Optionally close sidebar when clicking outside (desktop and mobile)
   document.addEventListener('click', function(e) {
-    if (isMobile() && sidebar.classList.contains('open') &&
-        !sidebar.contains(e.target) &&
-        e.target !== hamburger) {
-      closeMenu();
+    if (
+      sidebar.classList.contains('open') &&
+      !sidebar.contains(e.target) &&
+      e.target !== hamburger
+    ) {
+      sidebar.classList.remove('open');
     }
   });
 
-  // Responsive: reset sidebar state on resize
-  window.addEventListener('resize', function() {
-    if (!isMobile()) {
-      sidebar.classList.remove('open');
+  // Optional: Close sidebar on ESC key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeMenu();
     }
   });
 });
