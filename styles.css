@@ -68,13 +68,16 @@ body {
 }
 
 .hamburger {
+  position: absolute;
+  left: 0.5em; /* adjust as needed */
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 2em;
   background: none;
   border: none;
   color: #fff;
   cursor: pointer;
-  margin-right: 1em;
-  display: block;
+  margin: 0; /* remove margin, let absolute positioning handle it */
 }
 
 header {
@@ -82,16 +85,19 @@ header {
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: center; /* centers the h1 */
   background: #3566c0;
   color: #fff;
   padding: 1em;
   height: 1em;
 }
 
-
 header h1 {
-  margin: 0 auto;
+  margin: 0;
   font-size: 1.5em;
+  text-align: center;
+  flex: 0 1 auto;
+  width: 100%;
 }
 
 .main-content {
